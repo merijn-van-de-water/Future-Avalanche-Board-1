@@ -1,33 +1,16 @@
-## Future Avalanche Board Mi-V Sample FPGA Designs
-This folder contains Tcl scripts that build Libero SoC v2021.3 design projects for the Future Avalanche Board. These scripts are executed in Libero SoC to generate the sample designs. All cores boot from memory at 0x8000_0000.
+# PolarFire Evaluation Kit Mi-V Sample FPGA Designs
+This folder contains Tcl scripts that build Libero SoC v2021.2 design projects for the PolarFire Evaluation Kit. These scripts are executed in Libero SoC to generate the sample designs. All cores boot from memory at 0x8000_0000.
 
 
-#### PF_Avalanche_ES_MIV_RV32IMA_BaseDesign
-
-| Config  | Description |
-| :------:|:------------|
-| CFG1    |This design uses the MIV_RV32IMA_L1_AHB core with an **AHB** interface for memory and peripherals|
-| CFG2    |This design uses the MIV_RV32IMA_L1_AXI core with an **AXI3** interface for memory and peripherals|
+#### PF_Eval_Kit_MIV_RV32_BaseDesign (or ES equivalent)
 
 
-#### PF_Avalanche_ES_MIV_RV32IMAF_BaseDesign
-
-| Config  |Description |
-| :------:|:-----------|
-| CFG1    |  This design uses the MIV_RV32IMAF_L1_AHB core with an **AHB** interface for memory and peripherals|
-
-
-
-#### PF_Avalanche_ES_MIV_RV32_BaseDesign
-
-
-| Config  | Description|
-| :------:|:----------------------------------------|
-| CFG1    | This design uses the MIV_RV32 core configured as follows: <ul><li>RISC-V Extensions: IMC</li><li>Multiplier: MACC (Pipelined)</li><li>Interfaces: AHB Master (mirrored), APB3 Master</li><li>Internal IRQs: 6</li><li>TCM: Enabled</li><li>System Timer: Internal MTIME enabled, Internal MTIME IRQ enabled</li><li>Debug: enabled</li></ul>|
-| CFG2    | This design uses the MIV_RV32 core configured as follows: <ul><li>RISC-V Extensions: IM</li><li>Multiplier: Fabric</li><li>Interfaces: AXI4 Master (mirrored), APB3 Master</li><li>Internal IRQs: 6</li><li>TCM: Disabled</li><li>System Timer: Internal MTIME enabled, Internal MTIME IRQ enabled</li><li>Debug: enabled</li></ul>|
-| CFG3    | This design uses the MIV_RV32 core configured as follows: <ul><li>RISC-V Extensions: I</li><li>Multiplier: none</li><li>Interfaces: APB3 Master</li><li>Internal IRQs: 6</li><li>TCM: Enabled</li><li>System Timer: Internal MTIME enabled, Internal MTIME IRQ enabled</li><li>Debug: enabled</li></ul>|
-
-
+| Config  | Description|Memory Map(present) </br> This column will be removed|Memory map (Feb2022)|
+| :------:|:----------------------------------------|||
+| CFG1    | This design uses the MIV_RV32 core configured as follows: <ul><li>RISC-V Extensions: IMC</li><li>Multiplier: MACC (Pipelined)</li><li>Interfaces: AHB Master (mirrored), APB3 Master</li><li>Internal IRQs: 6</li><li>TCM: Enabled</li><li>System Timer: Internal MTIME, Internal MTIME IRQ </li><li>Debug: enabled</li></ul>|<li> LSRAM : 0x8000_0000 - 0x8000_3FFF</li><li>TCM : 0x4000_0000 - 0x4000__**3**FFF</li> <li>Peripherals : DirectoCores</li>|<li> LSRAM : 0x8000_0000 - 0x8000_3FFF</li><li>TCM : 0x4000_0000 - 0x4000__**7**FFF</li> <li>Peripherals : MIV_ESS</li> <li>Reset Vector : 0x8000_0000</li>|
+| CFG2    | This design uses the MIV_RV32 core configured as follows: <ul><li>RISC-V Extensions: IM</li><li>Multiplier: Fabric</li><li>Interfaces: AXI4 Master (mirrored), APB3 Master</li><li>Internal IRQs: 6</li><li>TCM: Disabled</li><li>System Timer: Internal MTIME , Internal MTIME IRQ </li><li>Debug: enabled</li></ul>|<li> LSRAM : 0x8000_0000 - 0x8000_**3**FFF</li><li>TCM : Disabled</li> <li>Peripherals : DirectoCores</li>|<li> LSRAM : 0x8000_0000 - 0x8000_**7**FFF</li><li>TCM : Disabled</li> <li>Peripherals : MIV_ESS</li> <li>Reset Vector : 0x8000_0000</li>|
+| CFG3    | This design uses the MIV_RV32 core configured as follows: <ul><li>RISC-V Extensions: I</li><li>Multiplier: none</li><li>Interfaces: APB3 Master</li><li>Internal IRQs: 6</li><li>TCM: Enabled</li><li>System Timer: Internal MTIM , Internal MTIME IRQ </li><li>Debug: enabled</li></ul>|<li> LSRAM : Not used</li><li>TCM : 0x8000_0000 - 0x8000_**7**FFF</li> <li>Peripherals : DirectoCores</li>|<li> LSRAM : Not used</li><li>TCM : 0x8000_0000 - 0x8000__**7**FFF</li> <li>Peripherals : MIV_ESS</li> <li>Reset Vector : 0x8000_0000</li>|
+| CFG4    | This design is supported on PolarFire production silicon. <br /> The design configuration is specifically for use with <br /> the User Crypto processor example firmware and <br />the CoreSysServices_PF example firmware. <br />The memory map of the design is printed in tcl console <br />once the design is created.|<li> LSRAM : 0x8000_0000 - 0x8000_**3**FFF </li><li>TCM : 0x4000_0000 - 0x4000_**3**FFF</li> <li>Peripherals : DirectoCores</li> <li>"GEN_DECODE_RV32:0" </li> |<li> LSRAM : 0x8000_0000 - 0x8000_**7**FFF </li><li>TCM : 0x4000_0000 - 0x4000_**7**FFF</li> <li>Peripherals : DirectoCores</li> <li>" **GEN_DECODE_RV32: 3** ?" <li>Reset Vector : 0x8000_0000</li></li>|
 
 ## <a name="quick"></a> Instructions
 
@@ -80,13 +63,60 @@ The Libero designs include the following features:
 * Target memory is SRAM (32kB)
 * User peripherals: 2 Timers, UART, 2 GPIO Inputs and 4 GPIO Outputs (GPIOs use fixed configs for simplicity and better resource utilization)
 
-The peripherals in this design are located at the following addresses.
+-------------------------------------------------
+## Deprecated configurations
 
-| Peripheral    | Address   |
+#### PF_Eval_Kit_MIV_RV32IMA_BaseDesign (or ES equivalent)
+Use MIV_RV32_BaseDesign configurations instead.
+
+| Config  | Description |
+| :------:|:------------|
+| CFG1    |This design uses the MIV_RV32IMA_L1_AHB core with an **AHB** interface for memory and peripherals|
+| CFG2    |This design uses the MIV_RV32IMA_L1_AXI core with an **AXI3** interface for memory and peripherals|
+
+
+#### PF_Eval_Kit_MIV_RV32IMAF_BaseDesign (or ES equivalent)
+
+| Config  |Description |
+| :------:|:-----------|
+| CFG1    |  This design uses the MIV_RV32IMAF_L1_AHB core with an **AHB** interface for memory and peripherals|
+
+The peripherals in these designs are located at the following addresses.
+
+| Peripheral    | Address       |
 | ------------- |:-------------:|
 | CoreUARTapb   | 0x7000_1000   |
 | CoreGPIO_IN   | 0x7000_2000   |
 | CoreTimer_0   | 0x7000_3000   |
 | CoreTimer_1   | 0x7000_4000   |
 | CoreGPIO_OUT  | 0x7000_5000   |
-| SRAM| 0x8000_0000|
+| SRAM          | 0x8000_0000   |
+
+-------------------------------------------------
+# < Additional info on Build configs...not part of the actual readme >
+
+#### Build configurations for all SC examples
+
+|Configuration             | Description                                                                                                  |
+|------------------| ----------------------------------------------------------------------------------------------------------   |
+|miv32imc-Debug    | Targeted for the Mi-V soft processor configured with RV32I base ISA + M and C extension. </br> Not-optimized (-O0). </br> Works with MIV_RV32. </br>Peripherals = MIV_ESS </br> Reset Vector = 0x8000_0000|
+|miv32imc-Release  | Targeted for the Mi-V soft processor configured with RV32I base ISA + M and C extension. </br> Optimized (-Os). </br> Works with MIV_RV32. </br>Peripherals = MIV_ESS </br> Reset Vector = 0x8000_0000|
+|miv32imcf-Debug (**future**)   | Targeted for the Mi-V soft processor configured with RV32I base ISA + M, C and F extension. </br> Not-optimized (-O0). </br> Works with MIV_RV32. </br>Peripherals = MIV_ESS </br> Reset Vector = 0x8000_0000|
+|miv32imcf-Release (**future**) | Targeted for the Mi-V soft processor configured with RV32I base ISA + M, C and F extension. </br> Optimized (-Os). </br> Works with MIV_RV32. </br>Peripherals = MIV_ESS </br> Reset Vector = 0x8000_0000|
+
+#### Build configurations for MIV_RV32 Blinky
+
+|Configuration             | Description                                                                                                  |
+|------------------| ----------------------------------------------------------------------------------------------------------   |
+|miv32i-Debug    | Targeted for the Mi-V soft processor configured with RV32I base ISA. </br> Not-optimized (-O0). </br> Works with MIV_RV32. </br>Peripherals = MIV_ESS </br> Reset Vector = 0x8000_0000|
+|miv32i-Release  | Targeted for the Mi-V soft processor configured with RV32I base ISA. </br> Optimized (-Os). </br> Works with MIV_RV32. </br>Peripherals = MIV_ESS </br> Reset Vector = 0x8000_0000|
+|miv32ima-Debug    | Targeted for the Mi-V soft processor configured with RV32I base ISA + M extension. </br> Not-optimized (-O0). </br> Works with MIV_RV32. </br>Peripherals = **DirectoCores** </br> Reset Vector = 0x8000_0000|
+|miv32ima-Release  | Targeted for the Mi-V soft processor configured with RV32I base ISA + M extension. </br> Optimized (-Os). </br> Works with MIV_RV32. </br>Peripherals = **DirectoCores** </br> Reset Vector = 0x8000_0000|
+|miv32imc-Debug   | Targeted for the Mi-V soft processor configured with RV32I base ISA + M and C extension. </br> Not-optimized (-O0). </br> Works with MIV_RV32. </br>Peripherals = MIV_ESS </br> Reset Vector = 0x8000_0000|
+|miv32imc-Release | Targeted for the Mi-V soft processor configured with RV32I base ISA + M and C extension. </br> Optimized (-Os). </br> Works with MIV_RV32. </br>Peripherals = MIV_ESS </br> Reset Vector = 0x8000_0000|
+|miv32imcf-Debug (**future**)    | Targeted for the Mi-V soft processor configured with RV32I base ISA + M, C and F extension. </br> Not-optimized (-O0). </br> Works with MIV_RV32. </br>Peripherals = MIV_ESS </br> Reset Vector = 0x8000_0000|
+|miv32imcf-Release (**future**)  | Targeted for the Mi-V soft processor configured with RV32I base ISA + M, C and F extension. </br> Optimized (-Os). </br> Works with MIV_RV32. </br>Peripherals = MIV_ESS </br> Reset Vector = 0x8000_0000|
+
+
+
+The idea behind asking about memory client attached to TCM was that, when that feature is available, we could remove LSRAMs from the design, set the default TCM address to 0x8000_0000 and tcl scripted designs and  *Debug and *Release configs will still work.
